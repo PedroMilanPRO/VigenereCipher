@@ -12,15 +12,13 @@
 ![](320px-Vigenère_square_shading.svg.png)
 ##### Example:
 
-Text: testing 
-Key:  keykeyk
-Cipher text: DIQDMLQ
-
-
-
-##### Inserting the code...
+- Text: testing 
+- Key:  keykeyk
+- Cipher text: DIQDMLQ
 
 ---
+##### Inserting the code...
+
 ```python
 abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
