@@ -1,33 +1,42 @@
-class caeser:
-    print('=========Calculator Cypher==============')
+abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
-    text = input('Enter the text to be Encrypted or Decrypted: ').upper()
-    key = int(input('type the key (> 0; < 26): '))
-    mode = input('Choose E to encrypt or D to decrypt: ')
+def criptografar(frase, chave):
+    crip_final = ''
 
-    CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    converted = ''
-
-    for character in text:
-        if character in CHARACTERS:
-            num = CHARACTERS.find(character)
-
-            if mode == 'E':
-                num = num + key
-            elif mode == 'D': 
-                num = num - key
+    i = 0
+    for letra in frase:
+        if letra != ' ':
+            sum_ = abc.find(letra) + abc.find(chave[i % len(chave)])
+            modulo = int(sum_) % len(abc)
+            crip_final += str(abc[modulo])
+            i += 1
         
-            if num >= len(CHARACTERS):
-                num = num - len(CHARACTERS)
-            elif num < 0:
-                num = num + len(CHARACTERS)
-            
-            converted = converted + CHARACTERS[num]
+    print(f'O texto criptografado é: {crip_final}')
 
-        else:
-            converted = converted + character
+def descriptografar(frase, chave):
+    crip_final = ''
 
-    if mode == 'E':
-        print(f'Encrypted text is {converted}')
-    elif mode == 'D':
-        print(f'decrypted text is {converted}')
+    i = 0
+    for letra in frase:
+        if letra != ' ':
+            sub = abc.find(letra) - abc.find(chave[i % len(chave)])
+            modulo = int(sub) % len(abc)
+            crip_final += str(abc[modulo])
+            i += 1
+        
+    print(f'O texto criptografado é: {crip_final}')
+
+
+def start():
+    frase = input('Frase: ').upper()
+    chave = input('Chave: ').upper()
+    mode = input('Digite C para Criptografar ou D para descriptografar: ').upper()
+
+    if mode == 'C':
+        criptografar(frase, chave)
+    if mode == 'D':
+        descriptografar(frase, chave)
+        
+
+if __name__ == '__main__':
+    start()
