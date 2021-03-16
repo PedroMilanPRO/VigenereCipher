@@ -1,71 +1,76 @@
-# caesar_cipher_calculator
-##### Caesar's Principles:
+# Vigenere_cipher_calculator
+##### Vigenere Principles:
 
 - Encrypt a text
-       - shift to the right (value)
+         - Have a sentence (Password), repeat it until it has the same length as the sentence to be encrypted
+         - Iterate each letter of the phrase and password, the first letter of the phrase, with the first letter of the password, and so successively
+         -locate horizontally and vertically in the table, and find the number where the two letters meet
+
 - Decrypt a text
-       - Shift to the left (value)
-    
+         - have the encrypted text (password), find the letter of the password, and go to the letter of the sentence, and go up
+         
+![](320px-Vigenère_square_shading.svg.png)
 ##### Example:
 
-Let's attack to the north (offset = 3)
+Text: testing 
+Key:  keykeyk
+Cipher text: DIQDMLQ
 
-I = L
-r = u
-e = h
 
-To decrypt, just do the reverse, with the key in your hands
 
-And so on...
-
-##### Explaining a little about the code...
+##### Inserting the code...
 
 ---
 ```python
-class caeser:
-    print('=========Calculator Cypher==============')
+abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
-    # Entrada de dados
-    text = input('Enter the text to be Encrypted or Decrypted: ').upper()
-    key = int(input('type the key (> 0; < 26): '))
-    mode = input('Choose E to encrypt or D to decrypt: ')
+def criptografar(frase, chave):
+    crip_final = ''
 
-    # Alfabeto e uma variavel que será o texto convertido
-    CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    converted = ''
+    i = 0
+    for letra in frase:
+        if letra != ' ':
+            sum_ = abc.find(letra) + abc.find(chave[i % len(chave)])
+            modulo = int(sum_) % len(abc)
+            crip_final += str(abc[modulo])
+            i += 1
+        
+    print(f'O texto criptografado é: {crip_final}')
 
-    # Laço for, iterando cara caratere do texto
-    for character in text:
-        # Verificando se possui o caratere no alfabeto
-        if character in CHARACTERS:
-            # Retornar a posição do caractere dentro da constante 
-            num = CHARACTERS.find(character)
-            # Verificar qual o modo 
-            if modo == 'E':
-                num = num + key
-            elif modo == 'D': 
-                num = num - key
-            
-            # Caso o numero for maior/menor do que o alfabeto, sera subtraido/adicionado
-            # o valor do comprimento do alfabeto
-            # Caso sendo maior que 0, e menor que 26, sera simplesmente concatenado
-            if num >= len(CHARACTERS):
-                num = num - len(CHARACTERS)
-            elif num < 0:
-                num = num + len(CHARACTERS)
-            
-            converted = converted + CHARACTERS[num]
-            
-        else:
-            converted = converted + character
+def descriptografar(frase, chave):
+    crip_final = ''
 
-    #Resultado Final
-    if mode == 'E':
-        print(f'Encrypted text is {converted}')
-    elif mode == 'D':
-        print(f'decrypted text is {converted}')
+    i = 0
+    for letra in frase:
+        if letra != ' ':
+            sub = abc.find(letra) - abc.find(chave[i % len(chave)])
+            modulo = int(sub) % len(abc)
+            crip_final += str(abc[modulo])
+            i += 1
+        
+    print(f'O texto criptografado é: {crip_final}')
+
+
+def start():
+    frase = input('Frase: ').upper()
+    chave = input('Chave: ').upper()
+    mode = input('Digite C para Criptografar ou D para descriptografar: ').upper()
+
+    if mode == 'C':
+        criptografar(frase, chave)
+    if mode == 'D':
+        descriptografar(frase, chave)
+        
+
+if __name__ == '__main__':
+    start()
 ```
 ---
+Inspirations:
+- https://youtu.be/XT6zIHXhFO4
+- https://youtu.be/rIjLR3OYpCo
+
+
 If something is wrong, let me know so I can fix it, I am always willing to improve.
 
 ![](Hello_Bye.gif)
